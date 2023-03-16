@@ -45,3 +45,38 @@ nav .link {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+/* Article styling */
+article {
+  padding: 2rem;
+  background-color: grey;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.search h2 {
+  font-size: 7vw;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.search input {
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1.5em;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.calculator {
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+.calculator a {
+  text-decoration: none;
+  color: inherit;
+}

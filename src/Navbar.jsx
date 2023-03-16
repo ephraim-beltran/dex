@@ -11,7 +11,7 @@ const Navbar = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/" onClick={toggleMenu}>
+          <Link to="/" onClick={() => setOpenMenu(false)}>
             <h1 id="logo">Pokedex</h1>
           </Link>
         </li>
@@ -23,12 +23,12 @@ const Navbar = () => {
         {openMenu && (
           <>
             <li className="link">
-              <Link to="/" onClick={toggleMenu}>
+              <Link to="/" onClick={() => setOpenMenu(false)}>
                 Home
               </Link>
             </li>
             <li className="link">
-              <Link to="/search" onClick={toggleMenu}>
+              <Link to="/search" onClick={() => setOpenMenu(false)}>
                 Search
               </Link>
             </li>
