@@ -16,9 +16,9 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="icon">
-          <Link to="javascript:void(0);" onClick={toggleMenu}>
-            <i class="fa fa-bars"></i>
-          </Link>
+          <button onClick={toggleMenu}>
+            <i className="fa fa-bars"></i>
+          </button>
         </li>
         {openMenu && (
           <>
