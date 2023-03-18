@@ -1,12 +1,19 @@
 import { useState } from "react";
-import fetchList from "../fetchList";
+import fetchData from "../fetchData";
 import { Link } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
   const [results, setResults] = useState([]);
-  const { data, error, isLoading } = fetchList(
-    "https://beta.pokeapi.co/graphql/v1beta"
+  const query = `{
+      pokemon_v2_pokemonspecies {
+        id
+        name
+      }
+    }
+  `;
+  const { data, error, isLoading } = fetchData(
+    "https://beta.pokeapi.co/graphql/v1beta", query
   );
   const getList = (e) => {
     const input = e.target.value;
@@ -21,14 +28,14 @@ const SearchBar = () => {
       }
     }
     if (searchInput.length === 0) {
-        setResults([])
+      setResults([]);
     }
     setSearchInput(input);
   };
   const clearInput = (e) => {
     e.preventDefault();
     setSearchInput("");
-    setResults([])
+    setResults([]);
   };
   return (
     <>
@@ -45,19 +52,18 @@ const SearchBar = () => {
           <i className="fa fa-times-circle-o" aria-hidden="true"></i>
         </button>
         <div className="search-output">
-          {
-            results.length > 0 && (
-                results.map(result => {
-                    return (
-                    <Link
-                    to={`/pokemon/${result.id}`}
-                    className="search-result"
-                    key={result.id}>{result.name}</Link>
-                    )
-                })
-            )
-          }
-          
+          {results.length > 0 &&
+            results.map((result) => {
+              return (
+                <Link
+                  to={`/pokemon/${result.id}`}
+                  className="search-result"
+                  key={result.id}
+                >
+                  {result.name}
+                </Link>
+              );
+            })}
         </div>
       </div>
     </>
