@@ -5,33 +5,34 @@ import { Link } from "react-router-dom";
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
   const [results, setResults] = useState([]);
-  const query = `{
+  const query = `query {
       pokemon_v2_pokemonspecies {
         id
         name
       }
     }
   `;
-  const { data, error, isLoading } = fetchData(
-    "https://beta.pokeapi.co/graphql/v1beta", query
+  const { data, error } = fetchData(
+    "https://beta.pokeapi.co/graphql/v1beta",
+    query
   );
+
   const getList = (e) => {
     const input = e.target.value;
     if (input.length > 3) {
       const list = data.data.pokemon_v2_pokemonspecies;
       const filteredList = list.filter((pokemon) => {
-        return pokemon.name.toLowerCase().includes(searchInput.toLowerCase());
+        const pokemonName = pokemon.name.toLowerCase();
+        const input = searchInput.toLowerCase();
+        return pokemonName.includes(input);
       });
       setResults(filteredList);
-      if (error !== null) {
-        console.log(error);
-      }
     }
-    if (searchInput.length === 0) {
-      setResults([]);
-    }
+    if (error !== null) console.log(error);
+    if (searchInput.length === 0) setResults([]);
     setSearchInput(input);
   };
+
   const clearInput = (e) => {
     e.preventDefault();
     setSearchInput("");
