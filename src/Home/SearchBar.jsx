@@ -1,5 +1,5 @@
 import { useState } from "react";
-import fetchData from "../fetchData";
+import fetchData from "../hooks/fetchData";
 import { Link } from "react-router-dom";
 
 const SearchBar = () => {
