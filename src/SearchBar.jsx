@@ -1,10 +1,9 @@
 import { useState } from "react";
-import fetchData from "../hooks/fetchData";
+import fetchData from "./hooks/fetchData";
 import { Link } from "react-router-dom";
 
-const SearchBar = () => {
+const SearchBar = ({ setResults, children: resultList }) => {
   const [searchInput, setSearchInput] = useState("");
-  const [results, setResults] = useState([]);
   const query = `query {
       pokemon_v2_pokemonspecies {
         id
@@ -39,35 +38,20 @@ const SearchBar = () => {
     setResults([]);
   };
   return (
-    <>
-      <div className="search-input">
-        <input
-          type="text"
-          value={searchInput}
-          onChange={(e) => {
-            getList(e);
-          }}
-        />
+    <div className="search-input">
+      <input
+        type="text"
+        value={searchInput}
+        onChange={(e) => {
+          getList(e);
+        }}
+      />
 
-        <button onClick={(e) => clearInput(e)}>
-          <i className="fa fa-times-circle-o" aria-hidden="true"></i>
-        </button>
-        <div className="search-output">
-          {results.length > 0 &&
-            results.map((result) => {
-              return (
-                <Link
-                  to={`/pokemon/${result.id}`}
-                  className="search-result"
-                  key={result.id}
-                >
-                  {result.name}
-                </Link>
-              );
-            })}
-        </div>
-      </div>
-    </>
+      <button onClick={(e) => clearInput(e)}>
+        <i className="fa fa-times-circle-o" aria-hidden="true"></i>
+      </button>
+      {resultList}
+    </div>
   );
 };
 

@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <ul>
+      <ul className="page-centered">
         <li>
           <Link to="/" onClick={() => setOpenMenu(false)}>
             <h1 id="logo">Pokedex</h1>

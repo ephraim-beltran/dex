@@ -1,14 +1,12 @@
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar";
+import SearchHere from "./SearchHere";
 
 const Home = () => {
   return (
     <>
-      <section className="search">
-        <h2>Search pokemon here:</h2>
-        <SearchBar />
-      </section>
-      <section className="calculator">
+      <SearchHere />
+      <section className="calculator featured-article">
         <Link to="/type-calculator">
           <h2>Type calculator</h2>
         </Link>

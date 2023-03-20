@@ -1,10 +1,10 @@
 import Navbar from "./Navbar";
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import Home from "./Home/Home";
-import PokemonList from "./PokemonList/PokemonList";
 import TypeCalculator from "./TypeCalculator/TypeCalculator";
 import NotFound from "./NotFound";
 import PokemonPage from "./PokemonPage/PokemonPage";
+import SearchPage from "./SearchPage/SearchPage";
 
 function App() {
   const { dexId } = useParams();
@@ -12,10 +12,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <main>
+        <main className="page-centered">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/search" element={<PokemonList />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/type-calculator" element={<TypeCalculator />} />
             <Route path="/pokemon/:dexId" element={<PokemonPage />} />
             <Route path="*" element={<NotFound />} />
