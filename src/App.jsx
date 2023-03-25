@@ -9,20 +9,18 @@ import SearchPage from "./SearchPage/SearchPage";
 function App() {
   const { dexId } = useParams();
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <main className="page-centered">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/type-calculator" element={<TypeCalculator />} />
-            <Route path="/pokemon/:dexId" element={<PokemonPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <main className="page-centered">
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/type-calculator" element={<TypeCalculator />} />
+          <Route path="/pokemon/:dexId/*" element={<PokemonPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 

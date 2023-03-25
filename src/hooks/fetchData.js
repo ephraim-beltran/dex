@@ -23,7 +23,7 @@ const fetchList = (url,query) => {
         return res.json()
     })
     .then(data => {
-        setData(data)
+        setData(data.data)
         setIsLoading(false)
         setError(null)
     })
