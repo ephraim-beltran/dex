@@ -1,6 +1,5 @@
 import { useState } from "react";
 import fetchData from "./hooks/fetchData";
-import { Link } from "react-router-dom";
 
 const SearchBar = ({ setResults, children: resultList }) => {
   const [searchInput, setSearchInput] = useState("");
@@ -17,19 +16,18 @@ const SearchBar = ({ setResults, children: resultList }) => {
   );
 
   const getList = (e) => {
-    const input = e.target.value;
-    if (input.length > 3) {
-      const list = data.data.pokemon_v2_pokemonspecies;
+    if (e.target.value.length > 2) {
+      const list = data.pokemon_v2_pokemonspecies;
       const filteredList = list.filter((pokemon) => {
         const pokemonName = pokemon.name.toLowerCase();
-        const input = searchInput.toLowerCase();
+        const input = e.target.value.toLowerCase();
         return pokemonName.includes(input);
       });
       setResults(filteredList);
     }
     if (error !== null) console.log(error);
     if (searchInput.length === 0) setResults([]);
-    setSearchInput(input);
+    setSearchInput(e.target.value);
   };
 
   const clearInput = (e) => {
@@ -48,7 +46,7 @@ const SearchBar = ({ setResults, children: resultList }) => {
       />
 
       <button onClick={(e) => clearInput(e)}>
-        <i className="fa fa-times-circle-o" aria-hidden="true"></i>
+        <span className="material-symbols-outlined">close</span>
       </button>
       {resultList}
     </div>
