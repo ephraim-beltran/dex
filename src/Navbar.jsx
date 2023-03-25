@@ -17,7 +17,7 @@ const Navbar = () => {
         </li>
         <li className="icon">
           <button onClick={toggleMenu}>
-            <i className="fa fa-bars"></i>
+            <span className="material-symbols-outlined">menu</span>
           </button>
         </li>
         {openMenu && (
