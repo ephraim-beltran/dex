@@ -317,6 +317,7 @@ section {
   border-radius: 10px;
   padding: 0.8rem;
   max-width: 412px;
+  min-height: fit-content;
   max-height: 654px;
 }
 .pokemon-title {
@@ -387,7 +388,7 @@ button:hover span {
 .pokemon-card-stats {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  min-height: 126px;
+  min-height: fit-content;
   border: 1px solid black;
   background-color: hsla(0, 0%, 96%, 0.9);
   padding: 0.5rem;
