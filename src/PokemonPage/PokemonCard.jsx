@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-const PokemonCard = ({ dexId, name, activeForm }) => {
-  const [shiny, setShiny] = useState(false);
+const PokemonCard = ({ dexId, name, activeForm, shiny, setShiny }) => {
 
   const shinyButton = (e) => {
     e.preventDefault();
@@ -29,7 +28,6 @@ const PokemonCard = ({ dexId, name, activeForm }) => {
       </div>
       <img
         src={shiny ? activeForm.sprites.shiny : activeForm.sprites.default}
-        alt=""
       />
       <div className="pokemon-card-types">
         {activeForm.types.map((type, i) => {

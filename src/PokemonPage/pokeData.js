@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
 const getStat = (formStats, statName) => {
-    return formStats[
-      formStats.findIndex((stat) => stat.pokemon_v2_stat.name === statName)
-    ].base_stat;
-  };
+  return formStats[
+    formStats.findIndex((stat) => stat.pokemon_v2_stat.name === statName)
+  ].base_stat;
+};
 
 const pokeData = (pokeId) => {
-    const query = `query pokemonDataQuery {
+  const query = `query pokemonDataQuery {
         pokemon_v2_pokemonspecies_by_pk(id: ${pokeId}) {
           is_legendary
           is_mythical
@@ -39,34 +39,35 @@ const pokeData = (pokeId) => {
           }
         }
       }`;
-     const [loading, setLoading] = useState(true);
-     const [pokemonData, setPokemonData] = useState();
-     const [activeForm, setActiveForm] = useState();
-    
-      useEffect(() => {
-        const controller = new AbortController();
-    
-        fetch(
-        'https://beta.pokeapi.co/graphql/v1beta',
-        {
-          signal: controller.signal,
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({query}),
-        })
-        .then(res => {
-          if (!res.ok) {
-            throw Error(`Data not received: ${res.status}`)
-          }
-          return res.json()
-        })
-        .then(data => {
-          const pokeData = {
-            name: data.data.pokemon_v2_pokemonspecies_by_pk.name,
-            id: data.data.pokemon_v2_pokemonspecies_by_pk.id,
-            is_legendary: data.data.pokemon_v2_pokemonspecies_by_pk.is_legendary,
-            is_mythical: data.data.pokemon_v2_pokemonspecies_by_pk.is_mythical,
-            forms: data.data.pokemon_v2_pokemonspecies_by_pk.pokemon_v2_pokemons.map(
+  const [loading, setLoading] = useState(true);
+  const [pokemonData, setPokemonData] = useState();
+  const [activeForm, setActiveForm] = useState();
+  const [shiny, setShiny] = useState(false);
+  const [formList, setFormList] = useState([]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("https://beta.pokeapi.co/graphql/v1beta", {
+      signal: controller.signal,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error(`Data not received: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        const pokeData = {
+          name: data.data.pokemon_v2_pokemonspecies_by_pk.name,
+          id: data.data.pokemon_v2_pokemonspecies_by_pk.id,
+          is_legendary: data.data.pokemon_v2_pokemonspecies_by_pk.is_legendary,
+          is_mythical: data.data.pokemon_v2_pokemonspecies_by_pk.is_mythical,
+          forms:
+            data.data.pokemon_v2_pokemonspecies_by_pk.pokemon_v2_pokemons.map(
               (form) => {
                 return {
                   form: form.id,
@@ -96,46 +97,75 @@ const pokeData = (pokeId) => {
                     default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${form.id}.png`,
                     shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${form.id}.png`,
                   },
-                  abilities: form.pokemon_v2_pokemonabilities.filter(ability => !ability.is_hidden).map(ability => {
-                    return ability.pokemon_v2_ability
-                  }),
-                  hidden_abilities: form.pokemon_v2_pokemonabilities.filter(ability => ability.is_hidden).map(ability => {
-                    return ability.pokemon_v2_ability
-                  }),
-                  
+                  abilities: form.pokemon_v2_pokemonabilities
+                    .filter((ability) => !ability.is_hidden)
+                    .map((ability) => {
+                      return ability.pokemon_v2_ability;
+                    }),
+                  hidden_abilities: form.pokemon_v2_pokemonabilities
+                    .filter((ability) => ability.is_hidden)
+                    .map((ability) => {
+                      return ability.pokemon_v2_ability;
+                    }),
                 };
               }
             ),
-        }
+        };
         setPokemonData(pokeData);
         console.log(`Pokemon data received.\nSpecies no.: ${pokeData.id}`);
-        setActiveForm(pokeData.forms[pokeData.forms.findIndex(form => form.is_default)])
+        setActiveForm(
+          pokeData.forms[pokeData.forms.findIndex((form) => form.is_default)]
+        );
+
+        setFormList(pokeData.forms.map((form) => {
+          return {
+            id: form.form,
+            name: form.name.replace(pokeData.name + "-", ""),
+          };
+        }));
+        console.log("Form list loaded");
         console.log(`Default pokemon loaded.`);
         // console.log(data);
-        setLoading(false)
-        })
-        .catch(error =>{
-          if (error.name === 'AbortError') {
-            console.log('Effect cleanup succesful');
-          } else {
-            console.error(error.message);
-          }
-        })
-        return () => controller.abort()
-      }, []);
-
-      // Only used for debugging
-      useEffect(() => {
-        if (activeForm !== undefined) {
-            console.log('Loaded form: ' + activeForm.form);
-            console.dir(activeForm)
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.name === "AbortError") {
+          console.log("Effect cleanup succesful");
+        } else {
+          console.error(error.message);
         }
-      }, [activeForm]);
-    return {
-        loading, // setLoading,           // Uncomment if required
-        pokemonData, // setPokemonData,   // Uncomment if required
-        activeForm, setActiveForm
-    };
-}
- 
+      });
+    return () => controller.abort();
+  }, []);
+
+
+  const selectForm = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    setActiveForm(
+      pokemonData.forms[
+        pokemonData.forms.findIndex((form) => form.form == value)
+      ]
+    );
+  };
+
+  // Only used for debugging
+  useEffect(() => {
+    if (activeForm !== undefined) {
+      console.log('Loaded list:');
+      console.table(formList);
+      console.log("Loaded form: " + activeForm.form);
+      console.dir(activeForm);
+    }
+  }, [activeForm]);
+  return {
+    loading, // setLoading,           // Uncomment if required
+    pokemonData, // setPokemonData,   // Uncomment if required
+    formList, selectForm,
+    activeForm,
+    shiny,
+    setShiny,
+  };
+};
+
 export default pokeData;
