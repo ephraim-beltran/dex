@@ -143,6 +143,14 @@ nav .link {
   margin-bottom: 0.5rem;
 }
 
+#back-button {
+  position: absolute;
+  left: -2.3rem;
+}
+#back-button:is(:hover) {
+  left: 0;
+}
+
 /* Section styling */
 section {
   background-color: grey;
