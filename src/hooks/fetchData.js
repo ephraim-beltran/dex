@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 
-const fetchList = (url,query) => {
+const fetchData = (url,query) => {
     const [data, setData] = useState();
-    const [isLoading, setIsLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState();
     
   useEffect(() => {
     const controller = new AbortController();
+    setLoading(true);
 
     fetch(url, {
       signal: controller.signal,
@@ -24,18 +25,18 @@ const fetchList = (url,query) => {
     })
     .then(data => {
         setData(data.data)
-        setIsLoading(false)
+        setLoading(false)
         setError(null)
     })
     .catch(err => {
         setError(err.message)
-        setIsLoading(false)
+        setLoading(false)
     })
 
     return () => controller.abort();
   }, []);
 
-  return { data, error, isLoading };
+  return { data, error, loading };
 };
 
-export default fetchList;
+export default fetchData;
