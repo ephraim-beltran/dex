@@ -20,9 +20,8 @@ const PokemonPage = () => {
     activeForm,
     shiny,
     setShiny,
+    weakness
   } = pokeData(dexId);
-
-  const {weakness} = fetchWeakness(activeForm.types)
 
   if (loading) return <Loading />;
 
