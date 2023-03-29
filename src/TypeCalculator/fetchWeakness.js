@@ -68,6 +68,9 @@ const fetchWeakness = (typeList) => {
           }
         })
       })
+      const sortedList = filteredList.sort((a, b) => {
+        return b.damage_factor - a.damage_factor
+      })
       setWeakness(filteredList);
 
       // For debugging only
