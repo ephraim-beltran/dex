@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import fetchWeakness from "../TypeCalculator/fetchWeakness";
 
 const getStat = (formStats, statName) => {
   return formStats[
@@ -41,7 +42,7 @@ const pokeData = (pokeId) => {
       }`;
   const [loading, setLoading] = useState(true);
   const [pokemonData, setPokemonData] = useState();
-  const [activeForm, setActiveForm] = useState();
+  const [activeForm, setActiveForm] = useState({types:[]});
   const [shiny, setShiny] = useState(false);
   const [formList, setFormList] = useState([]);
 
@@ -60,14 +61,14 @@ const pokeData = (pokeId) => {
         }
         return res.json();
       })
-      .then((data) => {
+      .then(({data}) => {
         const pokeData = {
-          name: data.data.pokemon_v2_pokemonspecies_by_pk.name,
-          id: data.data.pokemon_v2_pokemonspecies_by_pk.id,
-          is_legendary: data.data.pokemon_v2_pokemonspecies_by_pk.is_legendary,
-          is_mythical: data.data.pokemon_v2_pokemonspecies_by_pk.is_mythical,
+          name: data.pokemon_v2_pokemonspecies_by_pk.name,
+          id: data.pokemon_v2_pokemonspecies_by_pk.id,
+          is_legendary: data.pokemon_v2_pokemonspecies_by_pk.is_legendary,
+          is_mythical: data.pokemon_v2_pokemonspecies_by_pk.is_mythical,
           forms:
-            data.data.pokemon_v2_pokemonspecies_by_pk.pokemon_v2_pokemons.map(
+            data.pokemon_v2_pokemonspecies_by_pk.pokemon_v2_pokemons.map(
               (form) => {
                 return {
                   form: form.id,
@@ -125,19 +126,17 @@ const pokeData = (pokeId) => {
         }));
         console.log("Form list loaded");
         console.log(`Default pokemon loaded.`);
-        // console.log(data);
         setLoading(false);
       })
       .catch((error) => {
-        if (error.name === "AbortError") {
-          console.log("Effect cleanup succesful");
-        } else {
+        if (error.name !== "AbortError") {
           console.error(error.message);
         }
       });
-    return () => controller.abort();
-  }, []);
-
+      return () => controller.abort();
+    }, []);
+    
+  const {weakness} = fetchWeakness(activeForm.types)
 
   const selectForm = (e) => {
     e.preventDefault();
@@ -149,15 +148,16 @@ const pokeData = (pokeId) => {
     );
   };
 
+
   // Only used for debugging
-  useEffect(() => {
-    if (activeForm !== undefined) {
-      console.log('Loaded list:');
-      console.table(formList);
-      console.log("Loaded form: " + activeForm.form);
-      console.dir(activeForm);
-    }
-  }, [activeForm]);
+  // useEffect(() => {
+  //   if (activeForm !== undefined) {
+  //     console.log('Loaded list:');
+  //     console.table(formList);
+  //     console.log("Loaded form: " + activeForm.form);
+  //     console.dir(activeForm);
+  //   }
+  // }, [activeForm]);
   return {
     loading, // setLoading,           // Uncomment if required
     pokemonData, // setPokemonData,   // Uncomment if required
@@ -165,6 +165,7 @@ const pokeData = (pokeId) => {
     activeForm,
     shiny,
     setShiny,
+    weakness
   };
 };
 
