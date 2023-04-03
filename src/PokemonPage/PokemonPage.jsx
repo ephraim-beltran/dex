@@ -20,7 +20,7 @@ const PokemonPage = () => {
     activeForm,
     shiny,
     setShiny,
-    weakness
+    weakness,
   } = pokeData(dexId);
 
   if (loading) return <Loading />;
@@ -33,16 +33,16 @@ const PokemonPage = () => {
         activeForm={activeForm}
         formList={formList}
       />
-      <PokemonCard
-        dexId={pokemonData.id}
-        name={pokemonData.name}
-        activeForm={activeForm}
-        shiny={shiny}
-        setShiny={setShiny}
-      />
-      <PokemonWeakness 
-        weakness={weakness}
-      />
+      <div className="pokemon-article">
+        <PokemonCard
+          dexId={pokemonData.id}
+          name={pokemonData.name}
+          activeForm={activeForm}
+          shiny={shiny}
+          setShiny={setShiny}
+        />
+        <PokemonWeakness weakness={weakness} />
+      </div>
     </>
   );
 };
