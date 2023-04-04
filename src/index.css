@@ -147,7 +147,7 @@ nav .link {
   position: absolute;
   left: -2.3rem;
 }
-#back-button:is(:hover) {
+#back-button:is(:hover, :focus) {
   left: 0;
 }
 
@@ -355,6 +355,7 @@ section {
 #pokemon-id {
   font-size: 1rem;
   align-self: end;
+  font-weight: 600;
 }
 .pokemon-title button {
   background: none;
@@ -400,7 +401,8 @@ button:hover span {
   text-transform: uppercase;
   border-radius: 5px;
   border: 2px solid black;
-  min-width: 9ch;
+  min-width: 11ch;
+  max-width: 11ch;
   margin: auto 0.3rem;
   display: grid;
   place-items: center;
@@ -467,4 +469,27 @@ button:hover span {
 .pokemon-ability-hidden-item {
   text-transform: capitalize;
   font-size: 1.1rem;
+}
+/* Weakness section styling */
+#pokemon-weakness {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem;
+  gap: 0.5rem;
+  max-width: 689px;
+}
+.damage-factor {
+  border: 1px solid black;
+  padding: 0.3rem;
+  border-radius: 10px;
+  background-color: white;
+}
+.damage-factor > h4 {
+  margin: 0.3rem;
+}
+.damage-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
 }
