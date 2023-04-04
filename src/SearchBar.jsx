@@ -39,6 +39,7 @@ const SearchBar = ({ setResults, children: resultList }) => {
     <div className="search-input">
       <input
         type="text"
+        placeholder="Search pokemon here"
         value={searchInput}
         onChange={(e) => {
           getList(e);

@@ -1,12 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import pokeData from "./pokeData";
 import BackButton from "../BackButton";
 import PokemonCard from "./PokemonCard";
 import Loading from "../Loading";
 import PokemonFormSelection from "./PokemonFormSelection";
 import PokemonWeakness from "./PokemonWeakness";
-import fetchWeakness from "../TypeCalculator/fetchWeakness";
 
 const PokemonPage = () => {
   const { dexId } = useParams();
@@ -33,7 +31,13 @@ const PokemonPage = () => {
         activeForm={activeForm}
         formList={formList}
       />
-      <div className="pokemon-article">
+      <div
+      className={
+        'pokemon-article' +
+        ` ${pokemonData.name}` +
+        ` ${pokemonData.is_legendary ? 'legendary' : ''}` +
+        ` ${pokemonData.is_mythical ? 'mythical' : ''}`
+      }>
         <PokemonCard
           dexId={pokemonData.id}
           name={pokemonData.name}

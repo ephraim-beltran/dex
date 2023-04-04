@@ -1,7 +1,7 @@
 import { useState } from "react";
+import PokemonType from "../PokemonType";
 
 const PokemonCard = ({ dexId, name, activeForm, shiny, setShiny }) => {
-
   const shinyButton = (e) => {
     e.preventDefault();
     setShiny(!shiny);
@@ -14,7 +14,7 @@ const PokemonCard = ({ dexId, name, activeForm, shiny, setShiny }) => {
     <section id="pokemon-card" className={activeForm.types[0].name}>
       <div className="pokemon-title">
         <h2 id="pokemon-name">{name}</h2>
-        <h3 id="pokemon-id"># {dexId}</h3>
+        <span id="pokemon-id"># {dexId}</span>
         <button
           className={shiny ? "active" : undefined}
           onClick={(e) => {
@@ -31,11 +31,7 @@ const PokemonCard = ({ dexId, name, activeForm, shiny, setShiny }) => {
       />
       <div className="pokemon-card-types">
         {activeForm.types.map((type, i) => {
-          return (
-            <div className={`pokemon-type ` + type.name} key={i}>
-              {type.name}
-            </div>
-          );
+          return <PokemonType type={type.name} key={i} />;
         })}
       </div>
       <div className="pokemon-card-stats">
