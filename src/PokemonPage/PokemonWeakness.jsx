@@ -1,4 +1,3 @@
-import fetchWeakness from "../TypeCalculator/fetchWeakness";
 import PokemonType from "../PokemonType";
 
 
