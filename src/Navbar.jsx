@@ -12,7 +12,7 @@ const Navbar = () => {
       <ul className="page-centered">
         <li>
           <Link to="/" onClick={() => setOpenMenu(false)}>
-            <h1 id="logo">Pokedex</h1>
+            <h1 id="logo">Rotom Server</h1>
           </Link>
         </li>
         <li className="icon">
