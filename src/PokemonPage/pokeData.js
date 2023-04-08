@@ -148,16 +148,6 @@ const pokeData = (pokeId) => {
     );
   };
 
-
-  // Only used for debugging
-  // useEffect(() => {
-  //   if (activeForm !== undefined) {
-  //     console.log('Loaded list:');
-  //     console.table(formList);
-  //     console.log("Loaded form: " + activeForm.form);
-  //     console.dir(activeForm);
-  //   }
-  // }, [activeForm]);
   return {
     loading, // setLoading,           // Uncomment if required
     pokemonData, // setPokemonData,   // Uncomment if required
