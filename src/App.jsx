@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { HashRouter, Routes, Route, useParams } from "react-router-dom";
 import Home from "./Home/Home";
 import TypeCalculator from "./TypeCalculator/TypeCalculator";
 import NotFound from "./NotFound";
@@ -9,7 +9,7 @@ import SearchPage from "./SearchPage/SearchPage";
 function App() {
   const { dexId } = useParams();
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Navbar />
       <main className="page-centered">
         <Routes>
@@ -20,7 +20,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
