@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import fetchWeakness from "../TypeCalculator/fetchWeakness";
+import fetchWeakness from "./fetchWeakness";
 
 const getStat = (formStats, statName) => {
   return formStats[

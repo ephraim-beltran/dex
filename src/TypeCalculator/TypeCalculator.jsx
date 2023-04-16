@@ -1,7 +1,7 @@
 const TypeCalculator = () => {
     return ( 
         <>
-        <h2>This is TypeCalculator</h2>
+        <h2>Type Calculator</h2>
         </>
      );
 }

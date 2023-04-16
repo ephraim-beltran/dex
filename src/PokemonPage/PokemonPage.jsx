@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import pokeData from "./pokeData";
+import pokeData from "../hooks/pokeData";
 import BackButton from "../BackButton";
 import PokemonCard from "./PokemonCard";
 import Loading from "../Loading";
