@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 
-const fetchData = (url,query) => {
+const fetchSpeciesList = (url,query) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState();
+    const [error, setError] = useState(null);
     
   useEffect(() => {
     const controller = new AbortController();
@@ -23,8 +23,8 @@ const fetchData = (url,query) => {
         }
         return res.json()
     })
-    .then(data => {
-        setData(data.data)
+    .then(({data:{pokemon_v2_pokemonspecies : pokeSpecies}}) => {
+        setData(pokeSpecies)
         setLoading(false)
         setError(null)
     })
@@ -39,4 +39,4 @@ const fetchData = (url,query) => {
   return { data, error, loading };
 };
 
-export default fetchData;
+export default fetchSpeciesList;
