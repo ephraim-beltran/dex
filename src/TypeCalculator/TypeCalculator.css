@@ -1,0 +1,7 @@
+.type-selector {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 40px;
+    pointer-events: none;
+}
