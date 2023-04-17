@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 
-const fetchData = (url,query) => {
+const fetchSpeciesList = (url,query) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -39,4 +39,4 @@ const fetchData = (url,query) => {
   return { data, error, loading };
 };
 
-export default fetchData;
+export default fetchSpeciesList;

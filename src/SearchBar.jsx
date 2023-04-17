@@ -1,5 +1,5 @@
 import { useState } from "react";
-import fetchData from "./hooks/fetchData";
+import fetchSpeciesList from "./hooks/fetchSpeciesList";
 
 const SearchBar = ({ setResults, children: resultList }) => {
   const [searchInput, setSearchInput] = useState("");
@@ -10,7 +10,7 @@ const SearchBar = ({ setResults, children: resultList }) => {
       }
     }
   `;
-  const { data, error } = fetchData(
+  const { data, error } = fetchSpeciesList(
     "https://beta.pokeapi.co/graphql/v1beta",
     query
   );
