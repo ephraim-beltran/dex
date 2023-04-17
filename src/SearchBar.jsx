@@ -16,6 +16,7 @@ const SearchBar = ({ setResults, children: resultList }) => {
   );
 
   const getList = (e) => {
+    setSearchInput(e.target.value);
     const list = data.pokemon_v2_pokemonspecies;
     const filteredList = list.filter((pokemon) => {
       const pokemonName = pokemon.name.toLowerCase();
@@ -27,8 +28,6 @@ const SearchBar = ({ setResults, children: resultList }) => {
     }
     if (e.target.value.length < 3) setResults([]);
     if (error !== null) console.log(error);
-    if (searchInput.length === 0) setResults([]);
-    setSearchInput(e.target.value);
   };
 
   const clearInput = (e) => {
