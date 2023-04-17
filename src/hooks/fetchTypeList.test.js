@@ -18,12 +18,15 @@ describe("fetchTypeList custom hook", async () => {
         expect(error).toBeTruthy();
         expect(list).toHaveLength(0);
       });
-    } else if (error === false) {
+      return
+    }
+    if (error === false) {
       test("should return an array and no error when resolved", () => {
         expect(isLoading).toBeTruthy();
         expect(error).toBeFalsy();
         expect(list).toHaveLength(18);
       });
+      return
     }
   });
 });
