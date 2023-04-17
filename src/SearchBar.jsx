@@ -16,15 +16,16 @@ const SearchBar = ({ setResults, children: resultList }) => {
   );
 
   const getList = (e) => {
+    const list = data.pokemon_v2_pokemonspecies;
+    const filteredList = list.filter((pokemon) => {
+      const pokemonName = pokemon.name.toLowerCase();
+      const input = e.target.value.toLowerCase();
+      return pokemonName.includes(input);
+    });
     if (e.target.value.length > 2) {
-      const list = data.pokemon_v2_pokemonspecies;
-      const filteredList = list.filter((pokemon) => {
-        const pokemonName = pokemon.name.toLowerCase();
-        const input = e.target.value.toLowerCase();
-        return pokemonName.includes(input);
-      });
       setResults(filteredList);
     }
+    if (e.target.value.length < 3) setResults([]);
     if (error !== null) console.log(error);
     if (searchInput.length === 0) setResults([]);
     setSearchInput(e.target.value);
