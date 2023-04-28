@@ -1,11 +1,11 @@
 import "./TypeCalculator.css";
 
-const TypeSelection = () => {
+const TypeSelection = ({typeList}) => {
   return (
     <section>
       <div className="type-selector">
         <input type="checkbox" />
-        <div className="slider round">normal</div>
+        <label className="slider round">normal</label>
       </div>
     </section>
   );
